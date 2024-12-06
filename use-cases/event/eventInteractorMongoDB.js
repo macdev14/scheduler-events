@@ -37,3 +37,27 @@ exports.getById = async ({eventGetById}, {token, id}) => {
         return ({ status: 500, message: "Something went wrong: "  + error});
     }
 }
+exports.deleteById = async ({eventDeleteById}, {token, id}) => {
+    try {
+        const active = true;
+        
+        const event = new EventJwtEntity({token, id, active});
+        const getEvent = await eventDeleteById(event);
+        return getEvent;
+    } catch (error) {
+        console.log(error);
+        return ({ status: 500, message: "Something went wrong: "  + error});
+    }
+}
+exports.restoreById = async ({eventRestoreById}, {token, id}) => {
+    try {
+        const active = true;
+        
+        const event = new EventJwtEntity({token, id, active});
+        const getEvent = await eventRestoreById(event);
+        return getEvent;
+    } catch (error) {
+        console.log(error);
+        return ({ status: 500, message: "Something went wrong: "  + error});
+    }
+}
