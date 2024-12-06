@@ -2,11 +2,11 @@
 
 const {EventEntity} = require("../../entities/EventEntity");
 
-exports.create = async ({eventCreatePersistence}, {name, start_date, end_date, description, comment}) => {
+exports.create = async ({eventCreatePersistence}, {token, name, start_date, end_date, description, comment}) => {
     try {
         //persiste
-        const event = new EventEntity({name, start_date, end_date, description, comment});
-        const createEvent = await eventCreatePersistence(user);
+        const event = new EventEntity({token, name, start_date, end_date, description, comment});
+        const createEvent = await eventCreatePersistence(event);
         return createEvent;
     } catch (error) {
         console.log(error);

@@ -6,9 +6,9 @@ exports.EventEntity = class EventEntity {
         this.name = event.name;
         this.description = event.description;
         this.start_date = event.start_date || new Date();
-        this.ende_date = event.ende_date || new Date();
-        this.birthdate = event.birthdate || null;
+        this.end_date = event.end_date || new Date();
         this.comment = event.comment || null;
         this.active = event.active !== undefined ? event.active : true;
+        this.token = event.token;
     }
 }
