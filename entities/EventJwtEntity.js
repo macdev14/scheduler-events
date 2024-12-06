@@ -1,6 +1,7 @@
 exports.EventJwtEntity = class EventJwtEntity {
-    constructor({token, name}) {
+    constructor({token, id, active}) {
         this.token = token;
-        this.name = name
+        this.id = id;
+        this.active = active;
     }
 };
