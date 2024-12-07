@@ -1,4 +1,4 @@
-exports.EventTypeEntity = class EventTypeEntity {
+exports.EventTypeJwtEntity = class EventTypeJwtEntity {
     constructor(eventTypeJwt) {
         this.id = eventTypeJwt.id;
         this.description = eventTypeJwt.description;
