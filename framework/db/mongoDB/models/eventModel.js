@@ -1,6 +1,4 @@
 'use strict';
-const bcrypt = require('bcryptjs');
-require('dotenv').config();
 //database schema
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;

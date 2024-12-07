@@ -1,36 +1,99 @@
 'use strict';
-const bcrypt = require('bcryptjs');
-require('dotenv').config();
 //database schema
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const EventSchema = new Schema({
+const StateSchema = new Schema({
     id: { type: Number, unique: true },
-    name: { type: String, required: true },
     description: { type: String},
-    start_date: { type: Date, required: true },
-    end_date: { type: Date, required: true },
-    comment: { type: String}, 
-    event_type_id: { type: Number },
-    address_id: { type: Number},
     active: { type: Boolean, required: true, default: true }
-},{collection:'events'});
+},{collection:'states'});
 
-EventSchema.pre("save", async function (next) {
-    if (this.isNew) {
-        try {
-            // Find the max id in the Event collection
-            const lastEvent = await this.constructor.findOne().sort({ id: -1 });
-            const newId = lastEvent ? lastEvent.id + 1 : 1;
-            this.id = newId;
-            next();
-        } catch (error) {
-            next(error);
-        }
-    } else {
-        next();
+
+StateSchema.statics.requisition = async function () {
+    try {
+        const state = {
+            id: 1,
+            description: 'Requisição',
+            active: true
+        };
+
+        await this.updateOne(
+            { id: state.id }, 
+            { $set: state },              
+            { upsert: true }                 
+        );
+    } catch (error) {
+        throw error;
     }
-});
+};
+StateSchema.statics.approved = async function () {
+    try {
+        const state = {
+            id: 2,
+            description: 'Aprovado',
+            active: true
+        };
 
-const Event = mongoose.model("Event", EventSchema);
-module.exports = Event;
+        await this.updateOne(
+            { id: state.id }, 
+            { $set: state },              
+            { upsert: true }                 
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+StateSchema.statics.shipped = async function () {
+    try {
+        const state = {
+            id: 3,
+            description: 'Expedido',
+            active: true
+        };
+
+        await this.updateOne(
+            { id: state.id }, 
+            { $set: state },              
+            { upsert: true }                 
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+StateSchema.statics.finished = async function () {
+    try {
+        const state = {
+            id: 4,
+            description: 'Terminado',
+            active: true
+        };
+
+        await this.updateOne(
+            { id: state.id }, 
+            { $set: state },              
+            { upsert: true }                 
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+StateSchema.statics.canceled = async function () {
+    try {
+        const state = {
+            id: 1,
+            description: 'Cancelado',
+            active: true
+        };
+
+        await this.updateOne(
+            { id: state.id }, 
+            { $set: state },              
+            { upsert: true }                 
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+
+const State = mongoose.model("State", StateSchema);
+module.exports = State;

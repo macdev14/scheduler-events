@@ -6,6 +6,10 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./public/apidocjs/swagger.json');
+const { stateCreateStatesPersistence } = require("./use-cases/state/stateCreateStatesPersistence");
+const { eventTypeCreateTypesPersistence } = require("./use-cases/event-type/eventTypeCreateTypesPersistence");
+const stateInteractorMongoDB = require("./use-cases/state/stateInteractorMongoDB");
+const eventTypeInteractorMongoDB = require("./use-cases/event-type/eventTypeInteractorMongoDB");
 
 
 
@@ -18,12 +22,15 @@ mongoose.connect(uri).then(() => {
     console.log("Connected to the database");
     (async () => {
         try {
-
+            const states = await stateInteractorMongoDB.createStates({stateCreateStatesPersistence}, {});
+            console.log(states);
+            const eventTypes = await eventTypeInteractorMongoDB.createEventTypes({eventTypeCreateTypesPersistence},{});
+            console.log(eventTypes);
         } catch (err) {
-            console.log(err);
+            console.log("err", err);
         }
     })();
-    // res.status(user.status).send(user);
+    
 }).catch((err) => {
     console.log(err);
 })

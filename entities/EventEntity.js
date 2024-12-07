@@ -1,6 +1,3 @@
-const bcryptjs = require('bcryptjs');
-const Event = require('../framework/db/mongoDB/models/eventModel');
-
 exports.EventEntity = class EventEntity {
     constructor(event) {
         this.name = event.name;
