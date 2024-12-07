@@ -6,18 +6,18 @@ const EventState = mongoose.model("EventState");
 
 exports.eventStateGetEventById = async (eventState) => {
     console.log("eventState", eventState);
-    const {token, id} = eventState;
+    const {token, event_id} = eventState;
 
     try {
-        if (!token || !id) {
-            return { status: 400, message: "token and id are required" };
+        if (!token || !event_id) {
+            return { status: 400, message: "token and event_id are required" };
         }
 
         try {
             const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
             if (decoded.role == process.env.ROLE_ADMIN || decoded.role == process.env.ROLE_MANAGER) {
-                const eventState = await EventState.find({state_id: id, active: true });
+                const eventState = await EventState.find({event_id, active: true });
                 if (!eventState || eventState.length === 0) {
                     return { status: 404, message: "Event not found" };
                 }

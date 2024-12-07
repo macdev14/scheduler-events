@@ -3,6 +3,8 @@ const { eventStateGetAll } = require("../../use-cases/event-state/eventStateGetA
 const { eventStateGetByIds } = require("../../use-cases/event-state/eventStateGetByIds");
 const { eventStateGetEventById } = require("../../use-cases/event-state/eventStateGetEventById");
 const { eventStateGetStateById } = require("../../use-cases/event-state/eventStateGetStateById");
+const { eventStateDelete } = require("../../use-cases/event-state/eventStateDelete");
+const { eventStateRestore } = require("../../use-cases/event-state/eventStateRestore");
 const eventStateInteractorMongoDB = require("../../use-cases/event-state/eventStateInteractorMongoDB");
 const router = require("express").Router();
 
@@ -49,10 +51,10 @@ router.route('/event/eventState/getByIds').get(
 );
 router.route('/event/eventState/event/get').get(
     async (req, res) => {
-        const {id} = req.body;
+        const {event_id} = req.body;
         const token = req.headers['token'];
         try {
-            const eventState = await eventStateInteractorMongoDB.getEventStateEventById({eventStateGetEventById},{token, id});
+            const eventState = await eventStateInteractorMongoDB.getEventStateEventById({eventStateGetEventById},{token, event_id});
             res.status(eventState.status).send(eventState)
         } catch (error) {
             throw error;
@@ -63,10 +65,10 @@ router.route('/event/eventState/event/get').get(
 
 router.route('/event/eventState/state/get').get(
     async (req, res) => {
-        const {id} = req.body;
+        const {state_id} = req.body;
         const token = req.headers['token'];
         try {
-            const eventState = await eventStateInteractorMongoDB.getEventStateStateById({eventStateGetStateById},{token, id});
+            const eventState = await eventStateInteractorMongoDB.getEventStateStateById({eventStateGetStateById},{token, state_id});
             res.status(eventState.status).send(eventState)
         } catch (error) {
             throw error;
@@ -80,7 +82,7 @@ router.route('/event/eventState/delete').put(
         const {event_id, state_id} = req.body;
         const token = req.headers['token'];
         try {
-            const eventState = await eventStateInteractorMongoDB.deleteEventState({eventStateGetStateById},{token, event_id, state_id});
+            const eventState = await eventStateInteractorMongoDB.deleteEventState({eventStateDelete},{token, event_id, state_id});
             res.status(eventState.status).send(eventState)
         } catch (error) {
             throw error;
@@ -94,7 +96,7 @@ router.route('/event/eventState/restore').put(
         const {event_id, state_id} = req.body;
         const token = req.headers['token'];
         try {
-            const eventState = await eventStateInteractorMongoDB.restoreEventState({eventStateGetStateById},{token, event_id, state_id});
+            const eventState = await eventStateInteractorMongoDB.restoreEventState({eventStateRestore},{token, event_id, state_id});
             res.status(eventState.status).send(eventState)
         } catch (error) {
             throw error;
