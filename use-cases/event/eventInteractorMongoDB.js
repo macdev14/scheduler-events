@@ -14,6 +14,17 @@ exports.create = async ({eventCreatePersistence}, {token, name, start_date, end_
         return ({ status: 500, message: "Something went wrong: "  + error});
     }
 }
+exports.update = async ({eventEdit}, {id, token, name, start_date, end_date, description, comment}) => {
+    try {
+        
+        const event = new EventEntity({id, token, name, start_date, end_date, description, comment});
+        const createEvent = await eventEdit(event);
+        return createEvent;
+    } catch (error) {
+        console.log(error);
+        return ({ status: 500, message: "Something went wrong: "  + error});
+    }
+}
 exports.getAll = async ({eventGetAll}, {token}) => {
     try {
         const active = true;
