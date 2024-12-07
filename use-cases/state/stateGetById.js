@@ -1,30 +1,27 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
-require("../../framework/db/mongoDB/models/eventModel");
-const Event = mongoose.model("Event");
+require("../../framework/db/mongoDB/models/stateModel");
+const State = mongoose.model("State");
 
-exports.eventGetAll = async (event) => {
-    //console.log("event", event);
-    const {token, active} = event;
+exports.stateGetById = async (state) => {
+    console.log("state", state);
+    const {token, id , active} = state;
 
     try {
-        if (!token) {
-            return { status: 400, message: "token required" };
+        if (!token || !id) {
+            return { status: 400, message: "token and id are required" };
         }
-
-
 
         try {
             const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
             if (decoded.role == process.env.ROLE_ADMIN || decoded.role == process.env.ROLE_MANAGER) {
-                const events = await Event.find({ active });
-
-                if (!events || events.length === 0) {
-                    return { status: 404, message: "Events not found" };
+                const state = await State.find({id, active });
+                if (!state || state.length === 0) {
+                    return { status: 404, message: "Event state not found" };
                 }
-                return { status: 200, message: events };
+                return { status: 200, message: state };
             }
             return ({status: 403, message: "Access denied. Insufficient permissions."});
         } catch (err) {

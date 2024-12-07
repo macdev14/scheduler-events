@@ -1,6 +1,5 @@
 'use strict';
 
-const {EventTypeEntity} = require("../../entities/EventTypeEntity");
 const {EventTypeJwtEntity} = require("../../entities/EventTypeJwtEntity");
 
 exports.createEventTypes = async ({eventTypeCreateTypesPersistence}, {}) => {
@@ -13,27 +12,27 @@ exports.createEventTypes = async ({eventTypeCreateTypesPersistence}, {}) => {
     }
 }
 
-// exports.getAll = async ({eventGetAll}, {token}) => {
-//     try {
-//         const active = true;
-//         const event = new EventEntity({token, active});
-//         const getEvents = await eventGetAll(event);
-//         return getEvents;
-//     } catch (error) {
-//         console.log(error);
-//         return ({ status: 500, message: "Something went wrong: "  + error});
-//     }
-// }
-// exports.getById = async ({eventGetById}, {token, id}) => {
-//     try {
-//         const active = true;
-        
-//         const event = new EventJwtEntity({token, id, active});
-//         const getEvent = await eventGetById(event);
-//         return getEvent;
-//     } catch (error) {
-//         console.log(error);
-//         return ({ status: 500, message: "Something went wrong: "  + error});
-//     }
-// }
+exports.getAll = async ({eventTypeGetAll}, {token}) => {
+    try {
+        const active = true;
+        const eventType = new EventTypeJwtEntity({token, active});
+        const getEventTypes = await eventTypeGetAll(eventType);
+        return getEventTypes;
+    } catch (error) {
+        console.log(error);
+        return ({ status: 500, message: "Something went wrong: "  + error});
+    }
+}
 
+exports.getById = async ({eventTypeGetById}, {token, id}) => {
+    try {
+        const active = true;
+        
+        const eventType = new EventTypeJwtEntity({token, id, active});
+        const getEventType = await eventTypeGetById(eventType);
+        return getEventType;
+    } catch (error) {
+        console.log(error);
+        return ({ status: 500, message: "Something went wrong: "  + error});
+    }
+}
