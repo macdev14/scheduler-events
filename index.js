@@ -46,7 +46,7 @@ app.use('/api-docjs', express.static('./public/apidocjs'));
 app.use("/api", require("./controllers/routes/eventRoute"));        //event route
 app.use("/api", require("./controllers/routes/stateRoute"));        //state route
 app.use("/api", require("./controllers/routes/eventTypeRoute"));    //eventType route
-//app.use("/api", require("./controllers/routes/eventStateRoute"));   //eventState route
+app.use("/api", require("./controllers/routes/eventStateRoute"));   //eventState route
 
 app.listen(port, () => {
     console.log("Server running on port: " + port);
