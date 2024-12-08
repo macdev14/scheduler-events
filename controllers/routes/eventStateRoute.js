@@ -8,6 +8,27 @@ const { eventStateRestore } = require("../../use-cases/event-state/eventStateRes
 const eventStateInteractorMongoDB = require("../../use-cases/event-state/eventStateInteractorMongoDB");
 const router = require("express").Router();
 
+/**
+ * @api {post} /event/eventState/create Create an eventState
+ * @apiName CreateEventState
+ * @apiGroup EventState
+ *
+ * @apiParam {Number} event_id Event id
+ * @apiParam {Number} state_id State id
+ *
+ * @apiSuccess {Object} eventState EventState created
+ *
+ * @apiError {String} message Error message
+ *
+ * @apiHeader {String} token User's token
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -X POST
+ *     http://localhost:3000/event/eventState/create
+ *     -H 'Content-Type: application/json'
+ *     -H 'token: XXXXXXX'
+ *     -d '{"event_id": 12345, "state_id":1}'
+ */
 router.route('/event/eventState/create').post(
     async (req, res) => {
         const {event_id, state_id} = req.body;
@@ -21,6 +42,23 @@ router.route('/event/eventState/create').post(
        
     }
 );
+/**
+ * @api {get} /event/eventState/getAll Get all eventStates
+ * @apiName GetAllEventStates
+ * @apiGroup EventState
+ *
+ * @apiSuccess {Array} eventStates Array of eventStates
+ *
+ * @apiError {String} message Error message
+ *
+ * @apiHeader {String} token User's token
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -X GET
+ *     http://localhost:3000/event/eventState/getAll
+ *     -H 'Content-Type: application/json'
+ *     -H 'token: XXXXXXX'
+ */
 router.route('/event/eventState/getAll').get(
     async (req, res) => {
         const token = req.headers['token'];
@@ -34,7 +72,27 @@ router.route('/event/eventState/getAll').get(
     }
 );
 
-//event_id and state_id needed
+/**
+ * @api {get} /event/eventState/getByIds Get all eventStates by event_id and state_id
+ * @apiName GetAllEventStatesByIds
+ * @apiGroup EventState
+ *
+ * @apiParam {Number} event_id Event id
+ * @apiParam {Number} state_id State id
+ *
+ * @apiSuccess {Array} eventStates Array of eventStates
+ *
+ * @apiError {String} message Error message
+ *
+ * @apiHeader {String} token User's token
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -X GET
+ *     http://localhost:3000/event/eventState/getByIds
+ *     -H 'Content-Type: application/json'
+ *     -H 'token: XXXXXXX'
+ *     -d '{"event_id": 12345, "state_id":1}'
+ */
 router.route('/event/eventState/getByIds').get(
     async (req, res) => {
         const {event_id, state_id} = req.body;
@@ -49,6 +107,26 @@ router.route('/event/eventState/getByIds').get(
        
     }
 );
+/**
+ * @api {get} /event/eventState/event/get Get all events by event_id
+ * @apiName GetAllEventsByEventId
+ * @apiGroup EventState
+ *
+ * @apiParam {Number} event_id Event id
+ *
+ * @apiSuccess {Array} eventStates Array of eventStates
+ *
+ * @apiError {String} message Error message
+ *
+ * @apiHeader {String} token User's token
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -X GET
+ *     http://localhost:3000/event/eventState/event/get
+ *     -H 'Content-Type: application/json'
+ *     -H 'token: XXXXXXX'
+ *     -d '{"event_id": 12345}'
+ */
 router.route('/event/eventState/event/get').get(
     async (req, res) => {
         const {event_id} = req.body;
@@ -63,6 +141,26 @@ router.route('/event/eventState/event/get').get(
     }
 );
 
+/**
+ * @api {get} /event/eventState/state/get Get all events by state_id
+ * @apiName GetAllEventsByStateId
+ * @apiGroup EventState
+ *
+ * @apiParam {Number} state_id State id
+ *
+ * @apiSuccess {Array} eventStates Array of eventStates
+ *
+ * @apiError {String} message Error message
+ *
+ * @apiHeader {String} token User's token
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -X GET
+ *     http://localhost:3000/event/eventState/state/get
+ *     -H 'Content-Type: application/json'
+ *     -H 'token: XXXXXXX'
+ *     -d '{"state_id":1}'
+ */
 router.route('/event/eventState/state/get').get(
     async (req, res) => {
         const {state_id} = req.body;
@@ -77,6 +175,27 @@ router.route('/event/eventState/state/get').get(
     }
 );
 
+/**
+ * @api {put} /event/eventState/delete Delete one eventState
+ * @apiName DeleteEventState
+ * @apiGroup EventState
+ *
+ * @apiParam {Number} event_id Event id
+ * @apiParam {Number} state_id State id
+ *
+ * @apiSuccess {Object} eventState EventState deleted
+ *
+ * @apiError {String} message Error message
+ *
+ * @apiHeader {String} token User's token
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -X PUT
+ *     http://localhost:3000/event/eventState/delete
+ *     -H 'Content-Type: application/json'
+ *     -H 'token: XXXXXXX'
+ *     -d '{"event_id": 12345, "state_id":1}'
+ */
 router.route('/event/eventState/delete').put(
     async (req, res) => {
         const {event_id, state_id} = req.body;
@@ -91,6 +210,27 @@ router.route('/event/eventState/delete').put(
     }
 );
 
+/**
+ * @api {put} /event/eventState/restore Restore one eventState
+ * @apiName RestoreEventState
+ * @apiGroup EventState
+ *
+ * @apiParam {Number} event_id Event id
+ * @apiParam {Number} state_id State id
+ *
+ * @apiSuccess {Object} eventState EventState restored
+ *
+ * @apiError {String} message Error message
+ *
+ * @apiHeader {String} token User's token
+ *
+ * @apiExample {curl} Example usage:
+ *     curl -X PUT
+ *     http://localhost:3000/event/eventState/restore
+ *     -H 'Content-Type: application/json'
+ *     -H 'token: XXXXXXX'
+ *     -d '{"event_id": 12345, "state_id":1}'
+ */
 router.route('/event/eventState/restore').put(
     async (req, res) => {
         const {event_id, state_id} = req.body;
