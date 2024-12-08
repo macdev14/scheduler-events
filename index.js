@@ -50,7 +50,7 @@ app.use("/api", require("./controllers/routes/eventStateRoute"));   //eventState
 
 app.get("/", (req, res) => {
     res.send("Hello, World!");
-  });
+});
   
 
 app.listen(port, () => {
