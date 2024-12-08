@@ -48,6 +48,11 @@ app.use("/api", require("./controllers/routes/stateRoute"));        //state rout
 app.use("/api", require("./controllers/routes/eventTypeRoute"));    //eventType route
 app.use("/api", require("./controllers/routes/eventStateRoute"));   //eventState route
 
+app.get("/", (req, res) => {
+    res.send("Hello, World!");
+  });
+  
+
 app.listen(port, () => {
     console.log("Server running on port: " + port);
 })
