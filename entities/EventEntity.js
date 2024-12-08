@@ -7,6 +7,7 @@ exports.EventEntity = class EventEntity {
         this.end_date = event.end_date || new Date();
         this.comment = event.comment || null;
         this.active = event.active !== undefined ? event.active : true;
+        this.requisition_id = event.requisition_id;
         this.token = event.token;
     }
 }

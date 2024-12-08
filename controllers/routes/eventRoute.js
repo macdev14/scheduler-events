@@ -3,17 +3,18 @@ const { eventGetAll } = require("../../use-cases/event/eventGetAll");
 const { eventGetById } = require("../../use-cases/event/eventGetById");
 const { eventDeleteById } = require("../../use-cases/event/eventDeleteById");
 const { eventRestoreById } = require("../../use-cases/event/eventRestoreById");
+const { eventGetByRequisitionId } = require("../../use-cases/event/eventGetByRequisitionId");
 const { eventEdit } = require("../../use-cases/event/eventEdit");
 const eventInteractorMongoDB = require("../../use-cases/event/eventInteractorMongoDB");
 const router = require("express").Router();
 
 router.route('/event/create').post(
     async (req, res) => {
-        const {name, start_date, end_date, description, comment} = req.body;
+        const {name, start_date, end_date, description, comment, requisition_id} = req.body;
         const token = req.headers['token'];
         try {
            
-            const event = await eventInteractorMongoDB.create({eventCreatePersistence},{token, name, start_date, end_date, description, comment});
+            const event = await eventInteractorMongoDB.create({eventCreatePersistence},{token, name, start_date, end_date, description, comment, requisition_id});
             //console.log(event)
             res.status(event.status).send(event)
         } catch (error) {
@@ -61,6 +62,23 @@ router.route('/event/getById').get(
         try {
            
             const event = await eventInteractorMongoDB.getById({eventGetById},{token, id});
+            //console.log(event)
+            res.status(event.status).send(event)
+        } catch (error) {
+            throw error;
+        }
+       
+    }
+);
+
+router.route('/event/requisition/get').get(
+    async (req, res) => {
+        const {requisition_id} = req.body;
+        
+        const token = req.headers['token'];
+        try {
+           
+            const event = await eventInteractorMongoDB.getByRequisitionId({eventGetByRequisitionId},{token, requisition_id});
             //console.log(event)
             res.status(event.status).send(event)
         } catch (error) {

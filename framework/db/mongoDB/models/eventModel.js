@@ -11,7 +11,9 @@ const EventSchema = new Schema({
     comment: { type: String}, 
     event_type_id: { type: Number },
     address_id: { type: Number},
-    active: { type: Boolean, required: true, default: true }
+    active: { type: Boolean, required: true, default: true },
+    requisition_id: { type: String, required: true, unique: true },
+    user_id: { type: String, required: true, unique: true }
 },{collection:'events'});
 
 EventSchema.pre("save", async function (next) {

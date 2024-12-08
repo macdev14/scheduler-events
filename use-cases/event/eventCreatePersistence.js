@@ -14,11 +14,17 @@ const parseDate = (dateString) => {
 
 exports.eventCreatePersistence = async (event) => {
     //console.log("event", event);
-    const { token, name, start_date, end_date, description, comment } = event;
+    const { token, name, start_date, end_date, description, comment, requisition_id } = event;
 
     try {
-        if (!name || !start_date || !end_date || !token) {
-            return { status: 400, message: "token, name, start_date, and end_date are required" };
+        if (!name || !start_date || !end_date || !token || !requisition_id) {
+            return { status: 400, message: "token, name, start_date, end_date and requisition_id are required" };
+        }
+
+        
+        const eventExists = await Event.findOne({ requisition_id });
+        if (eventExists) {
+            return { status: 400, message: "requisition_id must be unique for each event" };
         }
 
         if (name.length > process.env.EVENT_NAME_MAX_SIZE) {
@@ -42,6 +48,8 @@ exports.eventCreatePersistence = async (event) => {
                     end_date: parsedEndDate,
                     description,
                     comment,
+                    requisition_id,
+                    user_id: decoded.id
                 };
                 await Event.create(createEvent);
                 console.log("createEvent", createEvent);
