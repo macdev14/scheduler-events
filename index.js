@@ -10,8 +10,7 @@ const { stateCreateStatesPersistence } = require("./use-cases/state/stateCreateS
 const { eventTypeCreateTypesPersistence } = require("./use-cases/event-type/eventTypeCreateTypesPersistence");
 const stateInteractorMongoDB = require("./use-cases/state/stateInteractorMongoDB");
 const eventTypeInteractorMongoDB = require("./use-cases/event-type/eventTypeInteractorMongoDB");
-
-
+//--
 
 const app = express();
 let port=process.env.PORT || 3000;
