@@ -33,7 +33,7 @@ mongoose.connect(uri).then(() => {
 }).catch((err) => {
     console.log(err);
 })
-
+//
 //middleware
 app.use(bodyParser.json()); //parse application/json and application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true })); //allowing for extended syntax (i.e. arrays, objects, nested objects, etc.)
