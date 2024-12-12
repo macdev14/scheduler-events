@@ -13,7 +13,7 @@ const EventSchema = new Schema({
     address_id: { type: Number},
     active: { type: Boolean, required: true, default: true },
     requisition_id: { type: String, required: true, unique: true },
-    user_id: { type: String, required: true, unique: true }
+    user_id: { type: String, required: true }
 },{collection:'events'});
 
 EventSchema.pre("save", async function (next) {
